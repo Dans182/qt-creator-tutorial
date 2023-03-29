@@ -16,7 +16,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=gnu++11 -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I../localServer -I. -I../../../../Qt/5.14.2/gcc_64/include -I../../../../Qt/5.14.2/gcc_64/include/QtWidgets -I../../../../Qt/5.14.2/gcc_64/include/QtGui -I../../../../Qt/5.14.2/gcc_64/include/QtNetwork -I../../../../Qt/5.14.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/userti/Qt/5.14.2/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -657,7 +657,7 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
-	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
+	g++ -pipe -std=gnu++11 -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: moc_localserver.cpp moc_widget.cpp
 compiler_moc_header_clean:
@@ -937,7 +937,8 @@ localserver.o: ../localServer/localserver.cpp ../localServer/localserver.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/QLocalSocket \
-		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalsocket.h
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalsocket.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o localserver.o ../localServer/localserver.cpp
 
 main.o: ../localServer/main.cpp ../localServer/widget.h \
@@ -1168,14 +1169,16 @@ widget.o: ../localServer/widget.cpp ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qinputmethod.h \
-		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QFrame \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QGridLayout \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtextcursor.h \
@@ -1192,7 +1195,10 @@ widget.o: ../localServer/widget.cpp ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalserver.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
-		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qabstractsocket.h
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o widget.o ../localServer/widget.cpp
 
 moc_localserver.o: moc_localserver.cpp 

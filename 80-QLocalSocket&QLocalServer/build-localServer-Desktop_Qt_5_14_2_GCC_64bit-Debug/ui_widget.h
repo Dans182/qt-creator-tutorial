@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -25,7 +26,7 @@ class Ui_Widget
 {
 public:
     QGridLayout *gridLayout;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *label;
     QLineEdit *msj;
     QHBoxLayout *horizontalLayout;
@@ -33,28 +34,32 @@ public:
     QPushButton *iniciar;
     QPushButton *enviar;
     QPushButton *quitar;
+    QFrame *line;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_2;
+    QLineEdit *servidor;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(764, 90);
+        Widget->resize(507, 178);
         gridLayout = new QGridLayout(Widget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label = new QLabel(Widget);
         label->setObjectName(QString::fromUtf8("label"));
 
-        horizontalLayout_2->addWidget(label);
+        horizontalLayout_3->addWidget(label);
 
         msj = new QLineEdit(Widget);
         msj->setObjectName(QString::fromUtf8("msj"));
 
-        horizontalLayout_2->addWidget(msj);
+        horizontalLayout_3->addWidget(msj);
 
 
-        gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout_3, 0, 0, 1, 1);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -80,6 +85,28 @@ public:
 
         gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
+        line = new QFrame(Widget);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line, 2, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_2 = new QLabel(Widget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        horizontalLayout_2->addWidget(label_2);
+
+        servidor = new QLineEdit(Widget);
+        servidor->setObjectName(QString::fromUtf8("servidor"));
+
+        horizontalLayout_2->addWidget(servidor);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 3, 0, 1, 1);
+
 
         retranslateUi(Widget);
 
@@ -93,6 +120,7 @@ public:
         iniciar->setText(QCoreApplication::translate("Widget", "Iniciar", nullptr));
         enviar->setText(QCoreApplication::translate("Widget", "Enviar", nullptr));
         quitar->setText(QCoreApplication::translate("Widget", "Quitar", nullptr));
+        label_2->setText(QCoreApplication::translate("Widget", "Nombre del servidor", nullptr));
     } // retranslateUi
 
 };
