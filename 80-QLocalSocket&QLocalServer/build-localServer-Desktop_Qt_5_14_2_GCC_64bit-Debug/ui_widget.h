@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -23,50 +24,61 @@ QT_BEGIN_NAMESPACE
 class Ui_Widget
 {
 public:
-    QLineEdit *lineEdit;
+    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label;
-    QWidget *widget;
+    QLineEdit *msj;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
+    QPushButton *iniciar;
+    QPushButton *enviar;
+    QPushButton *quitar;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(800, 600);
-        lineEdit = new QLineEdit(Widget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(260, 80, 113, 25));
+        Widget->resize(764, 90);
+        gridLayout = new QGridLayout(Widget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         label = new QLabel(Widget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(280, 130, 67, 17));
-        widget = new QWidget(Widget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(150, 250, 300, 27));
-        horizontalLayout = new QHBoxLayout(widget);
+
+        horizontalLayout_2->addWidget(label);
+
+        msj = new QLineEdit(Widget);
+        msj->setObjectName(QString::fromUtf8("msj"));
+
+        horizontalLayout_2->addWidget(msj);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 0, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        iniciar = new QPushButton(Widget);
+        iniciar->setObjectName(QString::fromUtf8("iniciar"));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(iniciar);
 
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        enviar = new QPushButton(Widget);
+        enviar->setObjectName(QString::fromUtf8("enviar"));
 
-        horizontalLayout->addWidget(pushButton_2);
+        horizontalLayout->addWidget(enviar);
 
-        pushButton_3 = new QPushButton(widget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        quitar = new QPushButton(Widget);
+        quitar->setObjectName(QString::fromUtf8("quitar"));
 
-        horizontalLayout->addWidget(pushButton_3);
+        horizontalLayout->addWidget(quitar);
+
+
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
 
         retranslateUi(Widget);
@@ -78,9 +90,9 @@ public:
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
         label->setText(QCoreApplication::translate("Widget", "Mensaje", nullptr));
-        pushButton->setText(QCoreApplication::translate("Widget", "Iniciar", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Widget", "Enviar", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("Widget", "Quitar", nullptr));
+        iniciar->setText(QCoreApplication::translate("Widget", "Iniciar", nullptr));
+        enviar->setText(QCoreApplication::translate("Widget", "Enviar", nullptr));
+        quitar->setText(QCoreApplication::translate("Widget", "Quitar", nullptr));
     } // retranslateUi
 
 };

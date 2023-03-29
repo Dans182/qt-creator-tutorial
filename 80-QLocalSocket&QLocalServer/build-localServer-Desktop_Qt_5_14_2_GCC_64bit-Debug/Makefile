@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../localServer -I. -I../../../../Qt/5.14.2/gcc_64/include -I../../../../Qt/5.14.2/gcc_64/include/QtWidgets -I../../../../Qt/5.14.2/gcc_64/include/QtGui -I../../../../Qt/5.14.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../localServer -I. -I../../../../Qt/5.14.2/gcc_64/include -I../../../../Qt/5.14.2/gcc_64/include/QtWidgets -I../../../../Qt/5.14.2/gcc_64/include/QtGui -I../../../../Qt/5.14.2/gcc_64/include/QtNetwork -I../../../../Qt/5.14.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/userti/Qt/5.14.2/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = localServer1.0.0
 DISTDIR = /home/userti/Repos\ QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/build-localServer-Desktop_Qt_5_14_2_GCC_64bit-Debug/.tmp/localServer1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/userti/Qt/5.14.2/gcc_64/lib
-LIBS          = $(SUBLIBS) /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Widgets.so /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Gui.so /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Widgets.so /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Gui.so /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Network.so /home/userti/Qt/5.14.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,10 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../localServer/main.cpp \
-		../localServer/widget.cpp moc_widget.cpp
-OBJECTS       = main.o \
+SOURCES       = ../localServer/localserver.cpp \
+		../localServer/main.cpp \
+		../localServer/widget.cpp moc_localserver.cpp \
+		moc_widget.cpp
+OBJECTS       = localserver.o \
+		main.o \
 		widget.o \
+		moc_localserver.o \
 		moc_widget.o
 DIST          = ../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/common/unix.conf \
@@ -213,6 +217,7 @@ DIST          = ../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		../localServer/.qmake.stash \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -233,7 +238,9 @@ DIST          = ../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/exceptions.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/lex.prf \
-		../localServer/localServer.pro ../localServer/widget.h ../localServer/main.cpp \
+		../localServer/localServer.pro ../localServer/localserver.h \
+		../localServer/widget.h ../localServer/localserver.cpp \
+		../localServer/main.cpp \
 		../localServer/widget.cpp
 QMAKE_TARGET  = localServer
 DESTDIR       = 
@@ -402,6 +409,7 @@ Makefile: ../localServer/localServer.pro ../../../../Qt/5.14.2/gcc_64/mkspecs/li
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -580,6 +588,7 @@ Makefile: ../localServer/localServer.pro ../../../../Qt/5.14.2/gcc_64/mkspecs/li
 ../../../../Qt/5.14.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt/5.14.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.14.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/5.14.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -616,8 +625,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../localServer/widget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../localServer/main.cpp ../localServer/widget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../localServer/localserver.h ../localServer/widget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../localServer/localserver.cpp ../localServer/main.cpp ../localServer/widget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../localServer/widget.ui $(DISTDIR)/
 
 
@@ -650,9 +659,83 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h ../../../../Qt/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_widget.cpp
+compiler_moc_header_make_all: moc_localserver.cpp moc_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_widget.cpp
+	-$(DEL_FILE) moc_localserver.cpp moc_widget.cpp
+moc_localserver.cpp: ../localServer/localserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/QLocalServer \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qset.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		moc_predefs.h \
+		../../../../Qt/5.14.2/gcc_64/bin/moc
+	/home/userti/Qt/5.14.2/gcc_64/bin/moc $(DEFINES) --include '/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/build-localServer-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h' -I/home/userti/Qt/5.14.2/gcc_64/mkspecs/linux-g++ -I'/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/localServer' -I/home/userti/Qt/5.14.2/gcc_64/include -I/home/userti/Qt/5.14.2/gcc_64/include/QtWidgets -I/home/userti/Qt/5.14.2/gcc_64/include/QtGui -I/home/userti/Qt/5.14.2/gcc_64/include/QtNetwork -I/home/userti/Qt/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../localServer/localserver.h -o moc_localserver.cpp
+
 moc_widget.cpp: ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qwidget.h \
@@ -760,7 +843,7 @@ moc_widget.cpp: ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		../../../../Qt/5.14.2/gcc_64/bin/moc
-	/home/userti/Qt/5.14.2/gcc_64/bin/moc $(DEFINES) --include '/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/build-localServer-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h' -I/home/userti/Qt/5.14.2/gcc_64/mkspecs/linux-g++ -I'/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/localServer' -I/home/userti/Qt/5.14.2/gcc_64/include -I/home/userti/Qt/5.14.2/gcc_64/include/QtWidgets -I/home/userti/Qt/5.14.2/gcc_64/include/QtGui -I/home/userti/Qt/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../localServer/widget.h -o moc_widget.cpp
+	/home/userti/Qt/5.14.2/gcc_64/bin/moc $(DEFINES) --include '/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/build-localServer-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h' -I/home/userti/Qt/5.14.2/gcc_64/mkspecs/linux-g++ -I'/home/userti/Repos QT/qt-creator-tutorial/80-QLocalSocket&QLocalServer/localServer' -I/home/userti/Qt/5.14.2/gcc_64/include -I/home/userti/Qt/5.14.2/gcc_64/include/QtWidgets -I/home/userti/Qt/5.14.2/gcc_64/include/QtGui -I/home/userti/Qt/5.14.2/gcc_64/include/QtNetwork -I/home/userti/Qt/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../localServer/widget.h -o moc_widget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -782,6 +865,80 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+localserver.o: ../localServer/localserver.cpp ../localServer/localserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/QLocalServer \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvector.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qset.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/QLocalSocket \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalsocket.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o localserver.o ../localServer/localserver.cpp
 
 main.o: ../localServer/main.cpp ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QWidget \
@@ -1002,8 +1159,44 @@ widget.o: ../localServer/widget.cpp ../localServer/widget.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_widget.h
+		ui_widget.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/QVariant \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtCore/qeventloop.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtWidgets/QSpacerItem \
+		../localServer/localserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/QLocalServer \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qlocalserver.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		../../../../Qt/5.14.2/gcc_64/include/QtNetwork/qabstractsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o widget.o ../localServer/widget.cpp
+
+moc_localserver.o: moc_localserver.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_localserver.o moc_localserver.cpp
 
 moc_widget.o: moc_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_widget.o moc_widget.cpp
