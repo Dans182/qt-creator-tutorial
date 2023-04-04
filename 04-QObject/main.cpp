@@ -9,6 +9,7 @@
 class Persona : public QObject  //creamos clase persona que hereda de QObject
 {
 public:
+    //a continuación, el constructor de la clase persona
     Persona(QObject *padre = NULL) //el constructor de persona, debe recibir un QObject padre puntero, que será el padre
         : QObject(padre) //y en el constructor de QObject debemos pasar el padre
     {
