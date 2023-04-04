@@ -10,9 +10,13 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     mSocket = new QTcpSocket(this);
 
+    int pos_z;
+
     connect(mSocket, &QTcpSocket::readyRead, [&](){
         QTextStream T(mSocket);
         ui->listWidget->addItem(T.readAll());
+        qDebug() << sizeof(T);
+    qDebug() << &T;
     });
 }
 
@@ -21,10 +25,9 @@ Widget::~Widget()
     delete ui;
 }
 
-
 void Widget::on_conectar_clicked()
 {
-//    mSocket->connectToServer(ui->servidor->text());
+    ui->conectar->setEnabled(false);
     mSocket->connectToHost(ui->servidor->text(), ui->puerto->value());
 }
 
