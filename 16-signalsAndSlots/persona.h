@@ -12,7 +12,7 @@ public:
     //tiene un constructor explícito
     explicit Persona(QObject *parent = nullptr);
 
-    //creamos funcion llamada setNombre que recibe una constante por
+    //creamos un método llamado setNombre que recibe una constante por
     //referencia llamada nombre
     void setNombre(const QString &nombre){
         m_nombre = nombre;

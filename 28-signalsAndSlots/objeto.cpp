@@ -6,32 +6,41 @@ Objeto::Objeto(QObject *parent)
 {
 
     //ahora hacemos las conexiones
-    connect(this, SIGNAL(señal()), this, SLOT(onSeñal()));
+    connect(this, SIGNAL(seyal()), this, SLOT(onSeyal()));
     //que objeto es el de origen
     //que señal voy a utilizar, la señal vacia
     //hacia que clase? hacia esta clase
     //al slot onseñal
 
-    connect(this, SIGNAL(señal(int)), this, SLOT(onSeñal(2)));
-
+    connect(this, SIGNAL(seyal(int)), this, SLOT(onSeyal(int)));
+    connect(this, SIGNAL(seyal(char)), this, SLOT(onSeyal(char)));
+    connect(this, SIGNAL(seyal(QString)), this, SLOT(onSeyal(QString)));
 }
+
 //(Prefijo de la clase a la que pertenecen)
 Objeto::~Objeto(){
 
 };
 
-void Objeto::onSeñal(){
-    qDebug() << "onSeñal()";
+void Objeto::emiteTodasLasSeyales(){
+    emit seyal();
+    emit seyal(-5);
+    emit seyal('@');
+    emit seyal("Hola, mundo!");
 };
 
-void Objeto::onSeñal(int e){
-    qDebug() << "onSeñal(int e)" << e;
+void Objeto::onSeyal(){
+    qDebug() << "onSeyal()";
 };
 
-void Objeto::onSeñal(char c){
-    qDebug() << "onSeñal(char c)" << c;
+void Objeto::onSeyal(int e){
+    qDebug() << "onSeyal(int e)" << e;
 };
 
-void Objeto::onSeñal(QString &s){
-    qDebug() << "onSeñal(QString s)" << s;
+void Objeto::onSeyal(char c){
+    qDebug() << "onSeyal(char c)" << c;
+};
+
+void Objeto::onSeyal(QString s){
+    qDebug() << "onSeyal(QString s)" << s;
 };
